@@ -7,11 +7,11 @@ class AccountController:
     @staticmethod
     def create_account(user: User,
                        balance: float,
-                       cut: datetime.date,
+                       cut: int,
                        ac_type: str,
                        open_date: datetime.date,
                        limit: float) -> Account:
-        account = Account(user.id, balance, cut, ac_type, open_date, limit)
+        account = Account(user_id=user.id, balance=balance, cut=cut, type=ac_type, open_date=open_date, limit=limit)
         account.save()
         return account
 

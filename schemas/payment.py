@@ -1,7 +1,7 @@
 from peewee import *
 from schemas.account import Account
 
-db = SqliteDatabase("../db/db_stonks.db")
+db = SqliteDatabase("./db/db_stonks.db")
 
 
 class Payment(Model):

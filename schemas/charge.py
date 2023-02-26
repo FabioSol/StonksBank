@@ -1,7 +1,7 @@
 from peewee import *
 from schemas.card import Card
 
-db = SqliteDatabase("../db/db_stonks.db")
+db = SqliteDatabase("./db/db_stonks.db")
 
 
 class Charge(Model):

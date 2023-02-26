@@ -11,6 +11,6 @@ class CardController:
                     cvv: str,
                     exp_date: datetime.date,
                     nip: str) -> Card:
-        card = Card(account.id, user.name, cvv, exp_date, nip)
+        card = Card(account_id=account.id, name=user.name, cvv=cvv, exp_date=exp_date, nip=nip)
         card.save()
         return card

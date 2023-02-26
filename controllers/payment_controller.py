@@ -12,7 +12,7 @@ class PaymentController:
                      amount: float) -> Optional[Payment]:
         if AccountController.update_balance(account, amount):
             account_id = account.id
-            payment = Payment(account_id, date_time, amount)
+            payment = Payment(account_id=account_id, date_time=date_time, amount=amount)
             payment.save()
             return payment
         else:
