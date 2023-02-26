@@ -1,5 +1,5 @@
 from peewee import *
-from user import User
+from schemas.user import User
 
 db = SqliteDatabase("../db/db_stonks.db")
 

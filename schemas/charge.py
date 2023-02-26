@@ -1,5 +1,5 @@
 from peewee import *
-from card import Card
+from schemas.card import Card
 
 db = SqliteDatabase("../db/db_stonks.db")
 

@@ -13,8 +13,6 @@ class UsersController:
                     age: int,
                     gender: str,
                     password: str) -> User:
-        user = User(name, rfc, birthdate, address, phone, email, age, gender, password)
+        user = User(name=name, rfc=rfc, birthdate=birthdate, address=address, phone=phone, email=email, age=age, gender=gender, password=password)
         user.save()
         return user
-
-
