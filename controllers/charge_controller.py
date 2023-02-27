@@ -13,17 +13,30 @@ class ChargeController:
                        date_time: datetime.datetime,
                        amount: float) -> Optional[Charge]:
         from controllers.account_controller import AccountController
-        
+
         account = Account.get(id=card.account_id)
 
-        if AccountController.update_balance(account, amount) & (amount > 0):
+        if amount > 0:
             card_id = card.id
             charge = Charge(card_id=card_id, date_time=date_time, amount=amount)
-            charge.save()
-            return charge
-        else:
-            print("Failed Payment")
+            ub = False
+            cs = False
+            try:
+                ub = AccountController.update_balance(account, amount)
+                if ub:
+                    cs = charge.save()
+                return charge
+            except:
+                print("charge failed")
+            finally:
+                if ub & (not cs):
+                    AccountController.update_balance(account, -amount)
 
+
+
+
+        else:
+            print("invalid amount")
 
     # Read
     @staticmethod
@@ -33,6 +46,7 @@ class ChargeController:
         except Charge.DoesNotExist:
             print("Charge does not exist")
             return None
+
     @staticmethod
     def get_charges_by_card(card: Card) -> list[Charge] | None:
         try:
@@ -42,14 +56,9 @@ class ChargeController:
             return None
 
     # Update
-        # that's illegal
+    # that's illegal
 
     # Delete
     @staticmethod
     def delete_charge(charge: Charge):
         charge.delete_instance()
-
-
-
-
-

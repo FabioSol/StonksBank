@@ -1,4 +1,5 @@
 from schemas.user import User
+from schemas.account import Account
 import datetime
 
 
@@ -68,8 +69,11 @@ class UsersController:
     # Delete
     @staticmethod
     def delete_user(user: User):
-        from account_controller import AccountController
-        if AccountController.get_account_by_user(user) is None:
+        try:
+            account = Account.get(user_id=user.id)
+        except:
+            account = None
+        if account is None:
             user.delete_instance()
         else:
             print("You can´t delete the user until you delete the account")

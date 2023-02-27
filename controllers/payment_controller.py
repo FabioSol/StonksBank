@@ -27,11 +27,14 @@ class PaymentController:
         debt = account.balance
         today = datetime.date.today()
         days_left = account.cut - today.day
+        if days_left < 0:
+            import calendar
+            days_left += calendar.monthrange(datetime.datetime.now().year, datetime.datetime.now().month)[1]
         print(f"You have {days_left} days left to pay")
         return debt
 
     @staticmethod
-    def get_payment_by_id(id:str) -> Payment | None:
+    def get_payment_by_id(id: str) -> Payment | None:
         try:
             return Payment.get(id=id)
         except Payment.DoesNotExist:

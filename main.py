@@ -1,4 +1,5 @@
 import os
+import time
 
 from faker import Faker
 import datetime
@@ -56,8 +57,8 @@ def generate_fake_info(num_users):
 
         balance = round(random.uniform(0, 10000), 2)
         limit = round(balance * random.uniform(1.1, 2.5), 2)
-        card_type = random.choices(card_types, weights=(90, 8, 2))[0]
-        opening_date = datetime.datetime.now() - timedelta(days=random.randint(1, 1000))
+        card_type = random.choices(card_types, weights=(90, 8, 2), k=1)[0]
+        opening_date = datetime.datetime.now() - timedelta(days=random.randint(365, 1000))
 
         cut_date = opening_date.day
 
@@ -77,7 +78,26 @@ def generate_fake_info(num_users):
 
 if __name__ == '__main__':
     create_db("db/stonks_database.db")
-    generate_fake_info(10)
+    generate_fake_info(5)
+
+    print("Accounts: ")
+    for a in Account.select():
+        print(a.id, a.user_id, a.balance, a.cut, a.type, a.open_date, a.limit)
+
+    card = CardController.get_card_by_id(2)
+    ChargeController.receive_charge(card, datetime.datetime.today(), 100)
+
+    card = CardController.get_card_by_id(4)
+    ChargeController.receive_charge(card, datetime.datetime.today(), 100)
+
+    card = CardController.get_card_by_id(5)
+    ChargeController.receive_charge(card, datetime.datetime.today(), 100000)
+
+    for i in range(1, 5+1):
+        account = AccountController.get_account_by_id(i)
+        req_pay = PaymentController.get_required_payment(account)
+        PaymentController.make_payment(account, datetime.datetime.today(), req_pay)
+
 
     print("Users: ")
     for u in User.select():
@@ -91,10 +111,24 @@ if __name__ == '__main__':
     for c in Card.select():
         print(c.id, c.account_id, c.name, c.cvv, c.exp_date, c.nip)
 
-    Payment.delete().execute()
-    Charge.delete().execute()
-    Card.delete().execute()
-    Account.delete().execute()
-    User.delete().execute()
+    print("Charges:")
+    for ch in Charge.select():
+        print(ch.id, ch.card_id, ch.date_time, ch.amount)
+        ChargeController.delete_charge(ch)
+
+    print("Payments:")
+    for p in Payment.select():
+        print(p.id, p.account_id, p.date_time, p.amount)
+        PaymentController.delete_payment(p)
+
+    for c in Card.select():
+        CardController.delete_card(c)
+
+    for a in Account.select():
+        AccountController.delete_account(a)
+
+    for u in User.select():
+        UsersController.delete_user(u)
+
 
 

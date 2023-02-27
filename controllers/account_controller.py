@@ -1,7 +1,9 @@
 from schemas.account import Account
 from schemas.user import User
 from schemas.card import Card
+from schemas.payment import Payment
 import datetime
+
 
 class AccountController:
     # Create
@@ -17,10 +19,14 @@ class AccountController:
         return account
 
     # Read
+
+    @staticmethod
+    def get_account_by_id(id: int) -> Account:
+        return Account.get(id=id)
+
     @staticmethod
     def get_account_by_name(name: str) -> Account:
-        from users_controller import UsersController
-        user = UsersController.get_user_by_name(name=name)
+        user = User.get(name=name)
         return Account.get(user_id=user.id)
 
     @staticmethod
@@ -37,13 +43,14 @@ class AccountController:
     # Update
     @staticmethod
     def update_balance(account: Account, amount: float) -> bool:
-        balance = Account.balance + amount
-        limit = Account.limit
+        balance = account.balance + amount
+        limit = account.limit
         if balance <= limit:
             account.balance = balance
             account.save()
             return True
         else:
+            print("not enough credit")
             return False
 
     @staticmethod
@@ -64,10 +71,16 @@ class AccountController:
     # Delete
     @staticmethod
     def delete_account(account: Account):
-        from card_controller import CardController
-        if CardController.get_cards_by_account(account)[0] is None:
-            from payment_controller import PaymentController
-            if PaymentController.get_payments_by_account(account) is None:
+        try:
+            card = Card.get(account_id=account.id)
+        except:
+            card = None
+        if card is None:
+            try:
+                payment = Payment.get(account_id=account.id)
+            except:
+                payment = None
+            if payment is None:
                 account.delete_instance()
             else:
                 print("You can´t delete the Account until you delete all Payments")

@@ -1,4 +1,5 @@
 from schemas.card import Card
+from schemas.charge import Charge
 from schemas.account import Account
 from schemas.user import User
 import datetime
@@ -20,9 +21,9 @@ class CardController:
     # Read
 
     @staticmethod
-    def get_cards_by_id(id: int) -> list[Card] | None:
+    def get_card_by_id(id: int) -> Card | None:
         try:
-            return list(Card.filter(id=id))
+            return Card.get(id=id)
         except Card.DoesNotExist:
             return None
 
@@ -51,12 +52,14 @@ class CardController:
     # Delete
     @staticmethod
     def delete_card(card: Card):
-        from account_controller import AccountController
-        account = AccountController.get_account_by_card(card)
+        account = Account.get(id=card.account_id)
         balance = account.balance
         if balance <= 0:
-            from charge_controller import ChargeController
-            if ChargeController.get_charges_by_card(card) is None:
+            try:
+                charge = Charge.get(card_id=card.id)
+            except:
+                charge = None
+            if charge is None:
                 card.delete_instance()
             else:
                 print("There are charges left to delete")
