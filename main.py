@@ -46,36 +46,55 @@ def generate_fake_info(num_users):
                                            rfc=rfc,
                                            birthdate=birthdate,
                                            address=address,
-                                           phone=phone, email=email,
+                                           phone=phone,
+                                           email=email,
                                            password=password,
                                            gender=gender,
                                            age=age)
 
-        # Create a list of card types
         card_types = ['Blue', 'Gold', 'Platinum']
 
-        # Generate random balance and limit values
         balance = round(random.uniform(0, 10000), 2)
         limit = round(balance * random.uniform(1.1, 2.5), 2)
-        # Generate a random card type
         card_type = random.choices(card_types, weights=(90, 8, 2))[0]
-        # Generate a random opening date
         opening_date = datetime.datetime.now() - timedelta(days=random.randint(1, 1000))
 
-        # Generate a random day of the month for the cut date
         cut_date = opening_date.day
 
-        # Create a row of data for this user_id
-        AccountController.create_account(user=user,
-                                         balance=balance,
-                                         cut=cut_date,
-                                         ac_type=card_type,
-                                         open_date=opening_date,
-                                         limit=limit)
+        account = AccountController.create_account(user=user,
+                                                   balance=balance,
+                                                   cut=cut_date,
+                                                   ac_type=card_type,
+                                                   open_date=opening_date,
+                                                   limit=limit)
 
-
+        CardController.create_card(account=account,
+                                   user=user,
+                                   cvv=str(random.randint(111, 999)),
+                                   exp_date=account.open_date + datetime.timedelta(days=5 * 365),
+                                   nip=str(random.randint(1111, 9999)))
 
 
 if __name__ == '__main__':
     create_db("db/stonks_database.db")
     generate_fake_info(10)
+
+    print("Users: ")
+    for u in User.select():
+        print(u.id, u.name, u.rfc, u.birthdate, u.address, u.phone, u.email, u.password, u.gender, u.age)
+
+    print("Accounts: ")
+    for a in Account.select():
+        print(a.id, a.user_id, a.balance, a.cut, a.type, a.open_date, a.limit)
+
+    print("Cards:")
+    for c in Card.select():
+        print(c.id, c.account_id, c.name, c.cvv, c.exp_date, c.nip)
+
+    Payment.delete().execute()
+    Charge.delete().execute()
+    Card.delete().execute()
+    Account.delete().execute()
+    User.delete().execute()
+
+
