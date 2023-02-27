@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from schemas.account import Account
 from schemas.user import User
 from schemas.card import Card

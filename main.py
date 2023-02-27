@@ -4,7 +4,7 @@ from faker import Faker
 import datetime
 import pandas as pd
 import random
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 from schemas.user import User
 from schemas.account import Account
@@ -96,5 +96,4 @@ if __name__ == '__main__':
     Card.delete().execute()
     Account.delete().execute()
     User.delete().execute()
-
 
