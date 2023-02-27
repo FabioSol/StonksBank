@@ -10,7 +10,7 @@ class AccountController:
     @staticmethod
     def create_account(user: User,
                        balance: float,
-                       cut: int,
+                       cut: datetime.date,
                        ac_type: str,
                        open_date: datetime.date,
                        limit: float) -> Account:

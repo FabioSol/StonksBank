@@ -1,7 +1,7 @@
 from schemas.payment import Payment
 from schemas.account import Account
 import datetime
-from typing import Optional
+from typing import Optional, List
 
 
 class PaymentController:
@@ -26,19 +26,19 @@ class PaymentController:
     def get_required_payment(account: Account) -> float:
         debt = account.balance
         today = datetime.date.today()
-        days_left = account.cut - today.day
+        days_left = account.cut.day - today.day
         print(f"You have {days_left} days left to pay")
         return debt
 
     @staticmethod
-    def get_payment_by_id(id:str) -> Payment | None:
+    def get_payment_by_id(id:str) -> Payment or None:
         try:
             return Payment.get(id=id)
         except Payment.DoesNotExist:
             return None
 
     @staticmethod
-    def get_payments_by_account(account: Account) -> list[Payment] | None:
+    def get_payments_by_account(account: Account) -> List or None:
         try:
             return list(Payment.filter(account_id=account.id))
         except Payment.DoesNotExist:

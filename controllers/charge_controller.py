@@ -27,14 +27,14 @@ class ChargeController:
 
     # Read
     @staticmethod
-    def get_charges_by_id(id: int) -> Charge | None:
+    def get_charges_by_id(id: int) -> Charge or None:
         try:
             return Charge.get(id=id)
         except Charge.DoesNotExist:
             print("Charge does not exist")
             return None
     @staticmethod
-    def get_charges_by_card(card: Card) -> list[Charge] | None:
+    def get_charges_by_card(card: Card) -> list or None:
         try:
             return list(Charge.filter(card_id=card.id))
         except Charge.DoesNotExist:

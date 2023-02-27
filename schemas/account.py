@@ -7,7 +7,7 @@ db = SqliteDatabase("./db/db_stonks.db")
 class Account(Model):
     user_id = ForeignKeyField(User, backref="accounts")
     balance = FloatField()
-    cut = IntegerField()
+    cut = DateField()
     type = CharField()
     open_date = DateField()
     limit = FloatField()

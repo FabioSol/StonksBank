@@ -1,3 +1,5 @@
+from typing import List
+
 from schemas.card import Card
 from schemas.account import Account
 from schemas.user import User
@@ -20,21 +22,21 @@ class CardController:
     # Read
 
     @staticmethod
-    def get_cards_by_id(id: int) -> list[Card] | None:
+    def get_cards_by_id(id: int) -> List or None:
         try:
             return list(Card.filter(id=id))
         except Card.DoesNotExist:
             return None
 
     @staticmethod
-    def get_cards_by_account(account: Account) -> list[Card] | None:
+    def get_cards_by_account(account: Account) -> List or None:
         try:
             return list(Card.filter(account_id=account.id))
         except Card.DoesNotExist:
             return None
 
     @staticmethod
-    def get_cards_by_name(name: str) -> list[Card] | None:
+    def get_cards_by_name(name: str) -> List or None:
         try:
             return list(Card.filter(name=name))
         except Card.DoesNotExist:
