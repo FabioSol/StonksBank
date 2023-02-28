@@ -29,14 +29,14 @@ class CardController:
             return None
 
     @staticmethod
-    def get_cards_by_account(account: Account) -> Union[list[Card] | None]:
+    def get_cards_by_account(account: Account) -> Union[list[Card], None]:
         try:
             return list(Card.filter(account_id=account.id))
         except Card.DoesNotExist:
             return None
 
     @staticmethod
-    def get_cards_by_name(name: str) -> Union[list[Card] | None]:
+    def get_cards_by_name(name: str) -> Union[list[Card], None]:
         try:
             return list(Card.filter(name=name))
         except Card.DoesNotExist:
