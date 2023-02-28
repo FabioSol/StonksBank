@@ -8,8 +8,9 @@ import time
 import os
 
 
-def create_db(path):
+def create_db(path: str) -> bool:
     if not os.path.isfile(path):
         db = SqliteDatabase(path)
         time.sleep(1)
         db.create_tables([User, Account, Card, Payment, Charge])
+        return True

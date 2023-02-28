@@ -11,7 +11,5 @@ class Card(Model):
     exp_date = DateField()
     nip = CharField()
 
-
     class Meta:
         database = db
-

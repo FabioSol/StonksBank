@@ -32,9 +32,6 @@ class ChargeController:
                 if ub & (not cs):
                     AccountController.update_balance(account, -amount)
 
-
-
-
         else:
             print("invalid amount")
 

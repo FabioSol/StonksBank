@@ -1,6 +1,3 @@
-import os
-import time
-
 from faker import Faker
 import datetime
 import pandas as pd
@@ -20,8 +17,6 @@ from controllers.charge_controller import ChargeController
 from controllers.payment_controller import PaymentController
 
 from db.migrations import create_db
-
-pd.set_option('display.max_columns', None)
 
 
 def generate_fake_info(num_users):
@@ -78,26 +73,32 @@ def generate_fake_info(num_users):
 
 if __name__ == '__main__':
     create_db("db/stonks_database.db")
-    generate_fake_info(5)
+    n = 10
+    generate_fake_info(n)
 
     print("Accounts: ")
     for a in Account.select():
         print(a.id, a.user_id, a.balance, a.cut, a.type, a.open_date, a.limit)
 
-    card = CardController.get_card_by_id(2)
-    ChargeController.receive_charge(card, datetime.datetime.today(), 100)
+    for e in range(1, n + 1):
+        card = CardController.get_card_by_id(e)
+        ChargeController.receive_charge(card, datetime.datetime.today(), random.randint(1, 100))
+        ChargeController.receive_charge(card, datetime.datetime.today(), random.randint(1, 100000))
 
-    card = CardController.get_card_by_id(4)
-    ChargeController.receive_charge(card, datetime.datetime.today(), 100)
-
-    card = CardController.get_card_by_id(5)
-    ChargeController.receive_charge(card, datetime.datetime.today(), 100000)
-
-    for i in range(1, 5+1):
+    for i in range(1, n + 1):
         account = AccountController.get_account_by_id(i)
         req_pay = PaymentController.get_required_payment(account)
         PaymentController.make_payment(account, datetime.datetime.today(), req_pay)
 
+    print("Charges:")
+    for ch in Charge.select():
+        print(ch.id, ch.card_id, ch.date_time, ch.amount)
+        ChargeController.delete_charge(ch)
+
+    print("Payments:")
+    for p in Payment.select():
+        print(p.id, p.account_id, p.date_time, p.amount)
+        PaymentController.delete_payment(p)
 
     print("Users: ")
     for u in User.select():
@@ -111,16 +112,6 @@ if __name__ == '__main__':
     for c in Card.select():
         print(c.id, c.account_id, c.name, c.cvv, c.exp_date, c.nip)
 
-    print("Charges:")
-    for ch in Charge.select():
-        print(ch.id, ch.card_id, ch.date_time, ch.amount)
-        ChargeController.delete_charge(ch)
-
-    print("Payments:")
-    for p in Payment.select():
-        print(p.id, p.account_id, p.date_time, p.amount)
-        PaymentController.delete_payment(p)
-
     for c in Card.select():
         CardController.delete_card(c)
 
@@ -129,6 +120,3 @@ if __name__ == '__main__':
 
     for u in User.select():
         UsersController.delete_user(u)
-
-
-
