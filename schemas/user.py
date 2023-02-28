@@ -1,6 +1,6 @@
 from peewee import *
 
-db = SqliteDatabase("../db/db_stonks.db")
+db = SqliteDatabase("./db/db_stonks.db", timeout=10)
 
 
 class User(Model):
@@ -10,9 +10,11 @@ class User(Model):
     address = CharField()
     phone = CharField()
     email = CharField()
-    age = DateTimeField()
+    age = IntegerField()
     gender = CharField()
     password = CharField()
 
     class Meta:
         database = db
+
+

@@ -1,13 +1,13 @@
 from peewee import *
-from user import User
+from schemas.user import User
 
-db = SqliteDatabase("../db/db_stonks.db")
+db = SqliteDatabase("./db/db_stonks.db", timeout=10)
 
 
 class Account(Model):
     user_id = ForeignKeyField(User, backref="accounts")
     balance = FloatField()
-    cut = DateField()
+    cut = IntegerField()
     type = CharField()
     open_date = DateField()
     limit = FloatField()
