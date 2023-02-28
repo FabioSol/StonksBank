@@ -2,6 +2,7 @@ from schemas.account import Account
 from schemas.user import User
 from schemas.card import Card
 from schemas.payment import Payment
+from typing import Union
 import datetime
 
 
@@ -30,7 +31,7 @@ class AccountController:
         return Account.get(user_id=user.id)
 
     @staticmethod
-    def get_account_by_user(user: User) -> Account | None:
+    def get_account_by_user(user: User) -> Union[Account, None]:
         try:
             return Account.get(user_id=user.id)
         except Account.DoesNotExist:

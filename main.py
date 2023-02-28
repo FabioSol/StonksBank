@@ -1,6 +1,5 @@
 from faker import Faker
 import datetime
-import pandas as pd
 import random
 from datetime import timedelta
 

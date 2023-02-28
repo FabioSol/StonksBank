@@ -3,6 +3,7 @@ from schemas.charge import Charge
 from schemas.account import Account
 from schemas.user import User
 import datetime
+from typing import Union
 
 
 class CardController:
@@ -21,21 +22,21 @@ class CardController:
     # Read
 
     @staticmethod
-    def get_card_by_id(id: int) -> Card | None:
+    def get_card_by_id(id: int) -> Union[Card, None]:
         try:
             return Card.get(id=id)
         except Card.DoesNotExist:
             return None
 
     @staticmethod
-    def get_cards_by_account(account: Account) -> list[Card] | None:
+    def get_cards_by_account(account: Account) -> Union[list[Card] | None]:
         try:
             return list(Card.filter(account_id=account.id))
         except Card.DoesNotExist:
             return None
 
     @staticmethod
-    def get_cards_by_name(name: str) -> list[Card] | None:
+    def get_cards_by_name(name: str) -> Union[list[Card] | None]:
         try:
             return list(Card.filter(name=name))
         except Card.DoesNotExist:

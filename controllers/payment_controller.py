@@ -2,6 +2,7 @@ from schemas.payment import Payment
 from schemas.account import Account
 import datetime
 from typing import Optional
+from typing import Union
 
 
 class PaymentController:
@@ -34,27 +35,23 @@ class PaymentController:
         return debt
 
     @staticmethod
-    def get_payment_by_id(id: str) -> Payment | None:
+    def get_payment_by_id(id: str) -> Union[Payment, None]:
         try:
             return Payment.get(id=id)
         except Payment.DoesNotExist:
             return None
 
     @staticmethod
-    def get_payments_by_account(account: Account) -> list[Payment] | None:
+    def get_payments_by_account(account: Account) -> Union[list[Payment], None]:
         try:
             return list(Payment.filter(account_id=account.id))
         except Payment.DoesNotExist:
             return None
 
     # Update
-        # that's illegal
+    # that's illegal
 
     # Delete
     @staticmethod
     def delete_payment(payment: Payment):
         payment.delete_instance()
-
-
-
-
