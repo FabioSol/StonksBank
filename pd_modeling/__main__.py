@@ -31,8 +31,10 @@ df['purpose'] = df['purpose'].astype('category')
 df['title'] = df['title'].astype('category')
 df['zip_code'] = df['zip_code'].astype('category')
 df['addr_state'] = df['addr_state'].astype('category')
-df['earliest_cr_line'] = pd.to_datetime(df['earliest_cr_line'], format='%b-%y').astype(int) // 10**6 #nojala
+df['earliest_cr_line'] = pd.to_datetime(df['earliest_cr_line'], format='%b-%y')
+df['earliest_cr_line'] = (df['earliest_cr_line'] - pd.Timestamp("1970-01-01")) // pd.Timedelta('1s')
 df['initial_list_status'] = df['initial_list_status'].astype('category')
-df['last_pymnt_d'] = pd.to_datetime(df['last_pymnt_d'], format='%b-%y').astype(int) // 10**6 #nojala
+df['last_pymnt_d'] = pd.to_datetime(df['last_pymnt_d'], format='%b-%y')
+df['last_pymnt_d'] = (df['last_pymnt_d'] - pd.Timestamp("1970-01-01")) // pd.Timedelta('1s')
 df['last_credit_pull_d'] = df['last_credit_pull_d'].astype('category')
 df.info()
