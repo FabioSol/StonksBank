@@ -1,6 +1,5 @@
 import sys
 
-# ESTOS BINS SON LOS DE LA CLASE, TENEMOS QUE CREAR LOS NUESTROS (NO SE COMO)
 bins = {"loan_amnt": [{"label": "(-inf,1000.0)", "max": 1000.0}, {"label": "(1000.0,9500.0)", "max": 9500.0},
                       {"label": "(9500.0,18000.0)", "max": 18000.0}, {"label": "(18000.0,inf)", "max": sys.maxsize}, ],
 
