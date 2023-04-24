@@ -18,7 +18,7 @@ class ColumnSelectorTransformer:
         X.dropna(inplace=True)
 
         for i in X.columns:
-            if len(X[i].unique()) < 50:
+            if len(X[i].unique()) < 55:
                 counts = X[i].value_counts()
                 for value, count in counts.items():
                     if count < 10:
@@ -37,6 +37,7 @@ class ColumnSelectorTransformer:
         n_samples = len(minority_class)
         undersampled_majority = resample(majority_class,
                                          replace=False,
+                                         random_state=42069,
                                          n_samples=n_samples)
         undersampled_df = pd.concat([undersampled_majority, minority_class]).reset_index(drop=True)
 
