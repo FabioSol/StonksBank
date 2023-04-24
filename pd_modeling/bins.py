@@ -27,9 +27,9 @@ bins = {"loan_amnt": [{"label": "(-inf,1000.0)", "max": 1000.0}, {"label": "(100
                 {"label": "(7.0,13.0)", "max": 13.0}, {"label": "(13.0,20.0)", "max": 20.0},
                 {"label": "(20.0,27.0)", "max": 27.0}, {"label": "(27.0,inf)", "max": sys.maxsize}, ],
 
-        "revol_bal": [{"label": "(-inf,0.0)", "max": 0.0}, {"label": "(0.0,640176.0)", "max": 640176.0},
-                      {"label": "(640176.0,1280352.0)", "max": 1280352.0},
-                      {"label": "(1280352.0,inf)", "max": sys.maxsize}, ],
+        "revol_bal": [{"label": "(-inf,0.0)", "max": 0.0}, {"label": "(0.0,500000.0)", "max": 500000.0},
+                      {"label": "(500000.0,1000000.0)", "max": 1000000.0},
+                      {"label": "(1000000.0,inf)", "max": sys.maxsize}, ],
 
         "revol_util": [{"label": "(-inf,0.0)", "max": 0.0}, {"label": "(0.0,37.0)", "max": 37.0},
                        {"label": "(37.0,74.0)", "max": 74.0}, {"label": "(74.0,inf)", "max": sys.maxsize}, ],
@@ -95,4 +95,4 @@ bins = {"loan_amnt": [{"label": "(-inf,1000.0)", "max": 1000.0}, {"label": "(100
                              {"label": "(4285771.0,5714328.0)", "max": 5714328.0},
                              {"label": "(5714328.0,7142885.0)", "max": 7142885.0},
                              {"label": "(7142885.0,inf)", "max": sys.maxsize}, ]
-}
+        }

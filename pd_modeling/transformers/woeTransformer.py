@@ -85,6 +85,7 @@ class WOETransformer:
         for col in df.columns:
             mapping = self.woe_mappings[col].set_index(col)
             categories = list(mapping.index)
+            print(categories)
             out[col] = df.loc[:, col].apply(lambda cat: mapping.loc[cat, "woe"])
         return out
 

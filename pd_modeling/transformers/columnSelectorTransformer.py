@@ -16,6 +16,15 @@ class ColumnSelectorTransformer:
             sampled_mean = int(X[column_mean_sampling].mean())
             X[column_mean_sampling].fillna(sampled_mean, inplace=True)
         X.dropna(inplace=True)
+
+        for i in X.columns:
+            if len(X[i].unique()) < 50:
+                counts = X[i].value_counts()
+                for value, count in counts.items():
+                    if count < 10:
+                        X = X[X[i] != value]
+
+
         return X
 
     @staticmethod
@@ -29,8 +38,10 @@ class ColumnSelectorTransformer:
         undersampled_majority = resample(majority_class,
                                          replace=False,
                                          n_samples=n_samples)
-        undersampled_df = pd.concat([undersampled_majority, minority_class])
+        undersampled_df = pd.concat([undersampled_majority, minority_class]).reset_index(drop=True)
+
         return undersampled_df
+
     def fit(self, *args, **kwargs):
         return self
 
