@@ -76,7 +76,7 @@ class WOETransformer:
         self.__set_woe_mappings(X, y, *args, **kwargs)
         return self
 
-    def transform(self, X: pd.DataFrame, y: pd.DataFrame = None) -> pd.DataFrame:
+    def transform(self, X: pd.DataFrame, y: pd.Series = None) -> pd.DataFrame:
         if self.woe_mappings is None:
             raise NotFittedError \
                 (f"This {self} instance is not fitted yet. Call 'fit' with appropriate arguments before using this transformer.")
@@ -85,7 +85,6 @@ class WOETransformer:
         for col in df.columns:
             mapping = self.woe_mappings[col].set_index(col)
             categories = list(mapping.index)
-            print(categories)
             out[col] = df.loc[:, col].apply(lambda cat: mapping.loc[cat, "woe"])
         return out
 

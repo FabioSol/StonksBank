@@ -23,7 +23,8 @@ class ColumnSelectorTransformer:
                 for value, count in counts.items():
                     if count < 10:
                         X = X[X[i] != value]
-
+        X = X[X['addr_state'] != 'NE']
+        X = X[X['addr_state'] != 'AI']
 
         return X
 
