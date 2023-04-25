@@ -8,9 +8,9 @@ bins = {"loan_amnt": [{"label": "(-inf,1000.0)", "max": 1000.0}, {"label": "(100
                         {"label": "(15571.0,20429.0)", "max": 20429.0}, {"label": "(20429.0,25286.0)", "max": 25286.0},
                         {"label": "(25286.0,inf)", "max": sys.maxsize}, ],
 
-        "int_rate": [{"label": "(-inf,6.0)", "max": 6.0}, {"label": "(6.0,9.0)", "max": 9.0},
-                     {"label": "(9.0,12.0)", "max": 12.0}, {"label": "(12.0,15.0)", "max": 15.0},
-                     {"label": "(15.0,17.0)", "max": 17.0}, {"label": "(17.0,20.0)", "max": 20.0},
+        "int_rate": [{"label": "(-inf,9.0)", "max": 9.0},
+                     {"label": "(9.0,12.0)", "max": 12.0},
+                     {"label": "(12.0,17.0)", "max": 17.0}, {"label": "(17.0,20.0)", "max": 20.0},
                      {"label": "(20.0,inf)", "max": sys.maxsize}, ],
 
         "installment": [{"label": "(-inf,23.0)", "max": 23.0}, {"label": "(23.0,254.0)", "max": 254.0},
@@ -40,13 +40,12 @@ bins = {"loan_amnt": [{"label": "(-inf,1000.0)", "max": 1000.0}, {"label": "(100
                       {"label": "(108.0,inf)", "max": sys.maxsize}, ],
 
         "out_prncp": [{"label": "(-inf,2000.0)", "max": 2000.0}, {"label": "(2000.0,8040.0)", "max": 8040.0},
-                      {"label": "(8040.0,16080.0)", "max": 16080.0}, {"label": "(16080.0,inf)", "max": sys.maxsize}, ],
+                      {"label": "(8040.0,inf)", "max": sys.maxsize}, ],
 
-        "total_pymnt": [{"label": "(-inf,7000)", "max": 7000}, {"label": "(7000.0,13786.0)", "max": 13786.0},
-                        {"label": "(13786.0,25000.0)", "max": 25000.0},
+        "total_pymnt": [{"label": "(-inf,7000)", "max": 7000}, {"label": "(7000.0,25000.0)", "max": 25000.0},
                         {"label": "(25000.0,inf)", "max": sys.maxsize}, ],
 
-        "total_rec_prncp": [{"label": "(-inf,2000.0)", "max": 2000}, {"label": "(2000.0,5833.0)", "max": 5833.0},
+        "total_rec_prncp": [{"label": "(-inf,5833.0)", "max": 5833.0},
                             {"label": "(5833.0,11667.0)", "max": 11667.0},
                             {"label": "(11667.0,17500.0)", "max": 17500.0},
                             {"label": "(17500.0,22000.0)", "max": 22000.0},
@@ -63,7 +62,7 @@ bins = {"loan_amnt": [{"label": "(-inf,1000.0)", "max": 1000.0}, {"label": "(100
                                {"label": "(90.0,inf)", "max": sys.maxsize}, ],
 
 
-        "last_pymnt_amnt": [{"label": "(-inf,100.0)", "max": 100.0}, {"label": "(100.0,6007.0)", "max": 6007.0},
+        "last_pymnt_amnt": [{"label": "(-inf,6007.0)", "max": 6007.0},
                             {"label": "(6007.0,12015.0)", "max": 12015.0},
                             {"label": "(12015.0,18022.0)", "max": 18022.0},
                             {"label": "(18022.0,23000.0)", "max": 23000.0},
